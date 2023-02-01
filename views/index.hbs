@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://kit.fontawesome.com/2d4e9f7759.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<script src="app.js"></script>
+ <div class="container">
+    <div class="form-box" id="formbox">
+
+    <h1 class="heading" id="heading">Sign Up</h1>
+    <form action="/auth/index" method="POST" id="form">
+
+        <div class="input-group" >
+            <div class="input-field" id="name" >
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="uname" placeholder="Enter Username" name="uname" required>
+            </div>
+
+            <div class="input-field">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="mail" placeholder="Enter Email" name="email" required>
+            </div>
+
+            <div class="input-field">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="pass" placeholder="Enter Password" name="password" required>
+            </div>
+
+             <div class="input-field" id="cpass">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="cpass2" placeholder="Confirm Password" name="cpassword" required>
+            </div>
+            <button type="submit" class="signUp" id="signUpBtn" form="form" formaction="/auth/index">SIGN UP</button>
+            <button type="submit" class="green hidden" id="logInBtn" form="form" formaction="/auth/login">LOG IN</button>
+            <div class="else" id="else">Already have an account?&nbsp</div>
+            <div type="submit" class="btn-log" id="btnlogIn">Log In</div>
+        </div>
+    </form>
+    <script>
+let close_btn = document.querySelector('.close-btn');
+let signUpBtn = document.getElementById("signUpBtn");
+let logInBtn = document.getElementById("logInBtn");
+let heading = document.getElementById("heading");
+let name = document.getElementById("name");
+let elsee = document.getElementById("else");
+let uname = document.getElementById("uname");
+let cpass = document.getElementById("cpass");
+let cpass2 = document.getElementById("cpass2");
+let mail = document.getElementById("mail");
+let pass = document.getElementById("pass");
+let formbox = document.getElementById("formbox");
+let inpGrp = document.getElementsByClassName("input-field");
+let btnlogIn = document.getElementById("btnlogIn");
+let alert = document.querySelector(".alert");
+let clicked = "false";
+btnlogIn.onclick = function ()
+{
+    if(clicked.match("true"))
+    {
+        name.style.maxHeight = "65px";
+        cpass.style.maxHeight = "65px";
+        logInBtn.classList.add("hidden");
+        signUpBtn.classList.remove("hidden");
+        signUpBtn.disabled = false;
+        heading.innerHTML = "Sign Up";
+        elsee.innerHTML = "Already have an account?&nbsp";
+        btnlogIn.innerHTML = "Log In";
+        clicked = "false";
+        for(let i=0; i<inpGrp.length; i++)
+        {
+            inpGrp[i].style.border = "1px solid #FF6363";
+        }
+        heading.style.marginBottom = "1rem";
+    }
+    else
+    {
+        name.style.maxHeight = "0px";
+        cpass.style.maxHeight = "0px";
+        uname.removeAttribute("required");
+        cpass2.removeAttribute("required");
+        signUpBtn.classList.add("hidden");
+        logInBtn.classList.remove("hidden");
+        signUpBtn.disabled = true;
+        heading.innerHTML = "Log In";
+        elsee.innerHTML = "Create an account!&nbsp";
+        btnlogIn.innerHTML = "Sign Up";
+        for(let i=0;i<inpGrp.length;i++)
+        {
+            inpGrp[i].style.border = "1px solid #2d6a4f";
+        }
+        name.style.border = "none";
+        cpass.style.border = "none";
+        clicked = "true";
+        heading.style.marginBottom = "0px";
+        logInBtn.style.marginTop = "0px";  
+    }
+}
+mail.addEventListener('keydown', pressEnter)
+pass.addEventListener('keydown', pressEnter)
+
+function pressEnter(event)
+{
+    if(event.key === 'Enter')
+    {
+        if(clicked.match("true"))
+        logInBtn.click();  
+        else
+        signUpBtn.click();
+    }
+}
+if(close_btn)
+{
+    close_btn.addEventListener('click', ()=>
+    {
+        alert.classList.remove('show');
+        alert.classList.add('hidden');
+    })
+}
+    </script>
+        {{#if logout}}
+        <script>
+            btnlogIn.click();
+        </script>
+        {{/if}}
+        {{#if register}}
+        <div class="alert show success">
+        <span><i class="fas icon fa-circle-check"></i></span> 
+            <span class="msg">{{register}}</span>
+            <span class="close-btn">
+            <span class="fas fa-times"></span> </span>
+        </div>
+
+        <script>
+            alert = document.querySelector(".alert");
+            setTimeout(function(){
+            alert.classList.add('hidden');
+            alert.classList.remove('show'); },2000);
+        </script>
+        {{/if}}
+
+        {{#if message}}
+        <div class="alert error show">
+        <span><i class="fas icon fa-exclamation-circle"></i></span> 
+            <span class="msg">{{message}}</span>
+            <span class="close-btn">
+            <span class="fas fa-times"></span> </span>
+        </div>
+
+        <script>
+            btnlogIn.click();
+            alert = document.querySelector(".alert");
+        setTimeout(function(){
+            alert.classList.add('hidden');
+            alert.classList.remove('show');},2000);
+        </script>
+        {{/if}}
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
