@@ -7,10 +7,10 @@ var bodyParser = require('body-parser')
 const app = express();
 
  const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: '9335611344iI#',
-    database: process.env.DATABASE
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: 'SLwU6oq0QgzHLOkhMseI',
+    database: process.env.MYSQLDATABASE
  });
 
 const publicDirectory = path.join(__dirname + '/public');
