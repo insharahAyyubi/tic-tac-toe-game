@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const path = require("path");
 const dotenv = require("dotenv");
 const cors = require('cors');
@@ -7,15 +7,14 @@ dotenv.config({path: './.env'});
 var bodyParser = require('body-parser')
 const app = express();
 
-
 app.use(cors());
-
 
  const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
-    password: '9335611344iI#',
-    database: process.env.DATABASE
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE,
+    port: process.env.DATABASE_PORT
  });
 
 const publicDirectory = path.join(__dirname + '/public');

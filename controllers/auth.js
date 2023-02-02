@@ -1,11 +1,12 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
-    password: '9335611344iI#',
-    database: process.env.DATABASE
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE,
+    port: process.env.DATABASE_PORT
  });
 
 exports.index = (req, res) => {
@@ -32,7 +33,7 @@ exports.index = (req, res) => {
     let hashedPassword = await bcrypt.hash(password, 8);
     console.log(hashedPassword);
     
-    db.query('INSERT INTO users SET ?', {name: uname, email: email, password: password}, (error, results) => {
+    db.query('INSERT INTO users SET ?', {uname: uname, email: email, password: password}, (error, results) => {
         if(error)
         {
             console.log(error);
