@@ -2,9 +2,14 @@ const express = require("express");
 const mysql = require("mysql");
 const path = require("path");
 const dotenv = require("dotenv");
+const cors = require('cors');
 dotenv.config({path: './.env'});
 var bodyParser = require('body-parser')
 const app = express();
+
+
+app.use(cors());
+
 
  const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
