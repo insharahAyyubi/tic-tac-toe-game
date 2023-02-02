@@ -7,10 +7,10 @@ var bodyParser = require('body-parser')
 const app = express();
 
  const db = mysql.createConnection({
-    host: process.env.MYSQLHOST,
-    user: process.env.MYSQLUSER,
-    password: 'SLwU6oq0QgzHLOkhMseI',
-    database: process.env.MYSQLDATABASE
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: '9335611344iI#',
+    database: process.env.DATABASE
  });
 
 const publicDirectory = path.join(__dirname + '/public');
@@ -29,6 +29,6 @@ app.use(bodyParser.json())
 app.use('/', (require('./routes/pages')));
 app.use('/auth', (require('./routes/auth')));
 
-app.listen(5696, () => {
+app.listen(5000, () => {
     console.log("Server started");
  })
