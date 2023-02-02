@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 
 exports.index = (req, res) => {
     console.log(req.body);
-    const { uname, email, password, cpassword } = req.body;
+    const {uname, email, password, cpassword } = req.body;
    db.query('SELECT email FROM users WHERE email = ?', [email], async(error, results) => {
     if(error)
     {
@@ -31,9 +31,9 @@ exports.index = (req, res) => {
     }
 
     let hashedPassword = await bcrypt.hash(password, 8);
-    console.log(hashedPassword);
+   
     
-    db.query('INSERT INTO users SET ?', {uname: uname, email: email, password: password}, (error, results) => {
+    db.query('INSERT INTO users SET ?', {id:1, uname: uname, email: email, password: password}, (error, results) => {
         if(error)
         {
             console.log(error);
